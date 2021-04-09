@@ -1,5 +1,13 @@
 # Cooperative-Scheduler
-The scheduler depends mainly on the taskQueue.h file and the tempelate provided in main.c under [src](https://github.com/doniaGhazy/Cooperative-Scheduler/tree/main/unit_tests%20(.h%20%2B%20.c%20)/Core/Src)
+The scheduler depends mainly on the taskQueue.h file and the template provided in main.c under [src](https://github.com/doniaGhazy/Cooperative-Scheduler/tree/main/unit_tests%20(.h%20%2B%20.c%20)/Core/Src)
+
+## HOW TO USE?
+1. generate the configuration files using STM cube MX according to the peripherals needed for the application
+2. put the taskQueue.h file in the /core/src/inc directory under the cubeMX project file 
+3. follow the template provided in the main.c file [link](https://github.com/doniaGhazy/Cooperative-Scheduler/blob/main/unit_tests%20(.h%20%2B%20.c%20)/Core/Src/main.c)
+* enqueue the tasks by either calling ```ReRunMe``` inside the task itself or by running ```QueTask``` in the main or in an ISR 
+* call the ```dispatch()``` function inside the infinite loop after each SysTick according to desired period [the period of ticks can be adjusted by using a counter in the stm32l4xx_it.c file]
+* 
 ## Main functions
 
 ```QueTask```
