@@ -98,7 +98,7 @@ This part has four tasks. Here, no need to call “Rerun” because it is only t
 - If two tasks have the same priority level, so anyone of them executes first.
 ![image](https://user-images.githubusercontent.com/45397911/114050057-3e1f1580-988c-11eb-88ae-6d7985a9a208.png)
 ###### Expected output:
-![image](https://user-images.githubusercontent.com/45397911/114050162-51ca7c00-988c-11eb-8c40-78afbb1ed6a3.png)
+![image](https://user-images.githubusercontent.com/45397911/114239185-085e5780-9986-11eb-8524-b81b5cd2afc2.png)
 ###### The Scheduler output:
 ![image](https://user-images.githubusercontent.com/43725885/114225815-15be1680-9973-11eb-98f7-b0d0a3b1c46b.png)
 -	If two tasks have the same priority level, so anyone of them executes first.
@@ -110,7 +110,7 @@ This part has four tasks. Here, no need to call “Rerun” because it is only t
 - If all tasks have the same priority level, so anyone of them executes first.
 ![image](https://user-images.githubusercontent.com/45397911/114050470-95bd8100-988c-11eb-8c1d-cc95ffa7a94a.png)
 ###### Expected output:
-![image](https://user-images.githubusercontent.com/45397911/114050507-9eae5280-988c-11eb-8114-1b45ddbf4d27.png)
+![image](https://user-images.githubusercontent.com/45397911/114239453-65f2a400-9986-11eb-9714-016dccdd4193.png)
 ###### The Scheduler output:
 ![image](https://user-images.githubusercontent.com/43725885/114226866-7e59c300-9974-11eb-8141-d4b8c619dbd6.png)
 
