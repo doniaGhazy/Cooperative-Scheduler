@@ -7,7 +7,7 @@ The scheduler depends mainly on the taskQueue.h file and the template provided i
 3. follow the template provided in the main.c file [link](https://github.com/doniaGhazy/Cooperative-Scheduler/blob/main/unit_tests%20(.h%20%2B%20.c%20)/Core/Src/main.c)
 * enqueue the tasks by either calling ```ReRunMe``` inside the task itself or by running ```QueTask``` in the main or in an ISR 
 * call the ```dispatch()``` function inside the infinite loop after each SysTick according to desired period [the period of ticks can be adjusted by using a counter in the stm32l4xx_it.c file]
-* 
+
 ## Main functions
 
 ```QueTask```
