@@ -1,5 +1,84 @@
 # Cooperative-Scheduler
-# Unit tests:
+The scheduler depends mainly on the taskQueue.h file and the tempelate provided in main.c under \Cooperative-Scheduler\unit_tests (.h + .c )\Core\Src
+## Main functions
+
+```QueTask```
+
+This function enqueues a task using its function pointer into the main queue. it takes the function pointer and the priority as arguments. it calls the ```enqueue``` function discussed in the taskQueue.h section
+
+```dispatch```
+
+This function is called in the infinite loop each time the SysTick sets the timerFlag to 1 after counting 50ms (the handling of the ticks and time is illustrated in the stm32l4xx_it.c file). it first decrements the delays of all the tasks in the delayed queue and makes use of the ticks value representing the skipped cycles as well if ticks is a non-zero value. it then enqueues the ready tasks (delay==0) from the delayed queue to the main queue. this happens by calling the ```pushReady``` function which takes pointers to both queues and handles the enqueuing. then, the ticks value is set to 0 in order not to over-count the skipped cycles of other tasks. if the main queue is empty, "IDLE" is transmitted through UART2 making use of the HAL_UART_Transmit() function. however, if the main queue is not empty, the first task in the main queue is dequeued and executed through its function pointer. 
+
+```ReRunMe```
+
+This function is responsible for making a task able to periodically run itself every specified delay time units. Moreover, This function is used so that a Task can enqueue itself in either the main_queue or the delayed_qeueue depending on the value of the delay. it takes the signature ```ReRunMe (function pointer , priority , delay)``` .
+
+```init```
+
+This function is mainly responsible for initializing the Queues (delayed Queue and Main Queue) which represents the main data structures of the scheduler. the hardware is initialized using the HAL_functions() after generating the project using CubeMx since the hardware initialization depends heavily on the application
+
+## taskQueue.h
+
+### this file implements the function-Queue-scheduling discussed in the lectures based on the ideas of priority queues (based on binary minimium heaps). 
+
+1. Helpful Macros:
+* funcPtr: a pointer to a function that takes void and returns void.
+* left(p) (2 * p + 1)  : left direct child node of current parent node (p).
+* right(p) (2 * p + 2) : right direct child node of current parent node (p).
+* p(c) ((c - 1) / 2) : parent node of child node (c).
+* min(a, b) (a < b ? a : b) : minimum of a and b. 
+
+2. Task Struct:
+
+* f: function pointer of type funcPtr corresponding to the task function.
+* priority: corresponds to the priority of the task.
+* delay: the delay of the task put in the delay queue.
+
+3. taskQueue struct has:
+* currentSize : number of elements in the queue.
+* maxSize : maximum size.
+* tasks: a task struct pointer pointing to the array of tasks the taskQueue has.
+
+4. functions that handle TaskQueue [different from the APIs mentioned above]
+
+```void que_init(struct taskQueue *que, uint16_t size)```
+
+a function that creates a taskQueue of size = size 
+
+```void enqueue(struct taskQueue *que, funcPtr f, uint16_t priority, uint16_t delay)```
+
+a public enqueue function that creates a task making use of ```(f , priority , delay)``` and calls the private enqueue function. 
+
+```void _enqueue(struct taskQueue *que, struct task Task)```
+
+private enqueue function that enqueues a Task in the TaskQueue 
+
+```void min_heap(struct taskQueue *que, int i)```
+a heapify function that restructures the queue according to the priorities of the tasks. it is basically called each time the dequeue function is called by putting the last function in the queue in the beginning of the tree and moving down until it reaches its place. 
+
+```void swap(struct task *t1, struct task *t2)```
+
+a Helper function that swaps the references of two tasks t1 and t2. 
+
+```struct task dequeue(struct taskQueue *que)```
+
+a function that gets the head of the queue (the highst priority ready task) to be executed.
+
+```void decrementDelay(struct taskQueue *que, uint16_t ticks)```
+
+a function that decrements the delay of the tasks in the delayed queue according to the number of ticks [skipped cycles] (if it is a non-zero value) and the value of its delay. 
+
+```void pushReady(struct taskQueue *delayed_que, struct taskQueue *main_que)```
+
+a function that enqueues the ready tasks from the delayed queue to the main queue.
+
+```uint8_t compare(struct task t1, struct task t2)```
+
+a Helper function that serves as a less than operator for the tasks **(t<delay,priority>)**.
+
+
+## Unit tests:
 **Test for the ready queue**
                                                         
 This part has four tasks. Here, no need to call “Rerun” because it is only the ready queue test. The following table describes their definition: \
