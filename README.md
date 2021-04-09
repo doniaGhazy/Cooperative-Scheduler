@@ -1,5 +1,5 @@
 # Cooperative-Scheduler
-The scheduler depends mainly on the taskQueue.h file and the tempelate provided in main.c under \Cooperative-Scheduler\unit_tests (.h + .c )\Core\Src
+The scheduler depends mainly on the taskQueue.h file and the tempelate provided in main.c under [src] (https://github.com/doniaGhazy/Cooperative-Scheduler/tree/main/unit_tests%20(.h%20%2B%20.c%20)/Core/Src)
 ## Main functions
 
 ```QueTask```
@@ -113,6 +113,7 @@ This part has four tasks. Here, no need to call “Rerun” because it is only t
 ![image](https://user-images.githubusercontent.com/45397911/114050507-9eae5280-988c-11eb-8114-1b45ddbf4d27.png)
 ###### The Scheduler output:
 ![image](https://user-images.githubusercontent.com/43725885/114226866-7e59c300-9974-11eb-8141-d4b8c619dbd6.png)
+
 **Test for the delayed queue**
 - If all of them have different priorities:
 ![image](https://user-images.githubusercontent.com/45397911/114051010-08c6f780-988d-11eb-90c8-3d0669a3762a.png)
