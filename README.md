@@ -26,8 +26,10 @@ This task is given a priority of ONE as logically speaking it is a needed funcio
 ![image](https://user-images.githubusercontent.com/45397911/114270702-22dc1380-9a0e-11eb-9487-f5cbdf574f8c.png)
 #### The scheduler output:
 ![image](https://user-images.githubusercontent.com/45397911/114270736-54ed7580-9a0e-11eb-832f-ba9c766cfe83.png)
+![172103146_253255026540449_1299288967518179733_n](https://user-images.githubusercontent.com/45397911/114282348-99473880-9a43-11eb-92e2-faea1062f3fa.jpg)
 - Here the input threshold is 23 so the condition is false so LED will not blink.
 #### Expected output:
 ![image](https://user-images.githubusercontent.com/45397911/114270807-a4cc3c80-9a0e-11eb-9177-637d5573a6b8.png)
 #### The scheduler output:
 ![image](https://user-images.githubusercontent.com/45397911/114270823-c0374780-9a0e-11eb-8fb8-2ef45b379102.png)
+![172580772_593784612024442_410913952574267912_n](https://user-images.githubusercontent.com/45397911/114282350-9fd5b000-9a43-11eb-8de5-f1ed86394337.jpg)
