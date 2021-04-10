@@ -135,9 +135,9 @@ static void ReadThreshold()
 		int oper2; 
 	HAL_UART_Transmit(&huart1,"READTH\r\n", sizeof("READTH\r\n"), 10);
 
-		HAL_UART_Receive(&huart1,(uint8_t *) &h[0], 1, 10);	
-		HAL_Delay(10);
-		HAL_UART_Receive(&huart1,(uint8_t *) &h[1], 1, 10);	
+		HAL_UART_Receive(&huart1,(uint8_t *) &h[0], 1, HAL_MAX_DELAY);	
+		HAL_Delay(100);
+		HAL_UART_Receive(&huart1,(uint8_t *) &h[1], 1, HAL_MAX_DELAY);	
 		//HAL_Delay(20);
 		//HAL_UART_Transmit(&huart1,(uint8_t *) &h[0], 1, 10);	
 		//HAL_UART_Transmit(&huart1,(uint8_t *) &h[1],1, 10);	
@@ -147,7 +147,8 @@ static void ReadThreshold()
 				oper1 = h[0] - '0';
 				oper2 = h[1] - '0';
 				thr = oper1 * pow(10, (int)log10(oper2)+1) + oper2;
-		
+				HAL_Delay(100);
+
 		//}
 		//ReRunMe(&ReadThreshold, 1, 1);
 
@@ -179,44 +180,39 @@ if (HAL_I2C_IsDeviceReady(&hi2c1, 0xD0, 10, 10) == HAL_OK)
 		 HAL_Delay(250);
  }
  }
- //Transmit via I2C to set clock
- uint8_t LSB [2], MSB [2];
- // LSB
- LSB[0] = 0x11; //register address
- LSB[1] = 0x0; //data to put in register 
- HAL_I2C_Master_Transmit(&hi2c1, 0xD0, LSB, 2, 10);
- // MSB
- MSB[0] = 0x12; //register address
- MSB[1] = 0x0; //data to put in register 
- HAL_I2C_Master_Transmit(&hi2c1, 0xD0, MSB, 2, 10);
- 
-	//control reg and status reg
-	uint8_t EOSC [2];
-	EOSC[0]= 0x0E;
-	EOSC[1]= 0x3C;
-	HAL_I2C_Master_Transmit(&hi2c1, 0xD0, EOSC, 2, 10);
+	 //Transmit via I2C to set clock
+	 uint8_t LSB [2], MSB [2];
+	 //control reg and status reg
+	 uint8_t EOSC [2];
+	 EOSC[0]= 0x0E;
+	 EOSC[1]= 0x3C;
+	 HAL_I2C_Master_Transmit(&hi2c1, 0xD0, EOSC, 2, 10);
 
-	uint8_t OSF [2];
-	OSF[0]= 0x0F;
-	OSF[1]= 0x8C;
-	HAL_I2C_Master_Transmit(&hi2c1, 0xD0, OSF, 2, 10);
+	 uint8_t OSF [2];
+	 OSF[0]= 0x0F;
+	 OSF[1]= 0x88;
+	 HAL_I2C_Master_Transmit(&hi2c1, 0xD0, OSF, 2, 10);
+	 LSB[0] = 0x11; //register address
+   HAL_I2C_Master_Transmit(&hi2c1, 0xD0, LSB, 1, 10);
+ 	 HAL_I2C_Master_Receive(&hi2c1, 0xD1, LSB+1, 1, 10);
+	 out[0] = hexToAscii(LSB[1] >> 4 );
+	 out[1] = hexToAscii(LSB[1] & 0x0F );
 
-	HAL_I2C_Master_Transmit(&hi2c1, 0xD0, LSB, 1, 10);
-	HAL_I2C_Master_Receive(&hi2c1, 0xD1, LSB+1, 1, 10);
-	out[0] = hexToAscii(LSB[1] >> 4 );
-	out[1] = hexToAscii(LSB[1] & 0x0F );
-			
-	HAL_I2C_Master_Transmit(&hi2c1, 0xD0, MSB, 1, 10);
-	HAL_I2C_Master_Receive(&hi2c1, 0xD1, MSB+1, 1, 10);
-	out[3] = hexToAscii(MSB[1]>> 4 );
-	out[4] = hexToAscii(MSB[1] & 0x0F );
-	 // transmit Data to UART
+   MSB[0] = 0x12; //register address
+   HAL_I2C_Master_Transmit(&hi2c1, 0xD0, MSB, 2, 10);
+ 	 HAL_I2C_Master_Receive(&hi2c1, 0xD1, LSB+1, 1, 10);
+	 out[3] = hexToAscii(((MSB[1]>>6)/4)>> 4);
+	 out[4] = hexToAscii(((MSB[1]>>6)/4) & 0x0F );
+	
+   // transmit Data to UART
 	 HAL_UART_Transmit(&huart1,out, sizeof(out), 10);
-	 z = out[3] * pow(10, (int)log10(out[4])+1) + out[4];
-	 f = out[0] * pow(10, (int)log10(out[1])+1) + out[1];
-	 temp= concat(z, f);
+	 int num = atoi((const char*) out);
+
+	 //z = out[3] * pow(10, (int)log10(out[4])+1) + out[4];
+	 //f = out[0] * pow(10, (int)log10(out[1])+1) + out[1];
+	 //temp= concat(z, f);
 	 
-		if(temp >thr)
+		if(num >thr)
 		{
 			QueTask(&BlinkingLED,1);
 		}
