@@ -3,7 +3,7 @@
 The application relys on the scheduler implemented in the main branch. It basically consists of different tasks given to the scheduler with different priorities. Based on each priority, each task will get excuted.
 
 ## Main Tasks:
-1. **ReadThreshold()**: it basically a task queued by other taks main() using QueTask() and itself using ReRunMe() as well. It receives the threshold value from the user through teraterm (PC) using UART communication. After, receving this value, it will be recalculated in order to get its integer value to be compared later with the temperature measured by the RTC.
+1. **ReadThreshold()**: it basically a task queued by other tasks main() using QueTask() and itself using ReRunMe() as well. It receives the threshold value from the user through teraterm (PC) using UART communication. After, receving this value, it will be recalculated in order to get its integer value to be compared later with the temperature measured by the RTC.
 #### Priority given:
 This task is given a priority of ONE (highest priority) as logically speaking it is the first needed funcionality to be done before even getting the temperature from the RTC.
 Here, No need to call the function "Rerun" since we only need to have this value ONLY once at the beginning of the execution.
