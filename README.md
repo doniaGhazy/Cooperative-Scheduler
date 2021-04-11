@@ -21,5 +21,15 @@ Here, we need to call the function "Rerun" as the distance needs to be calculate
 #### Priority given:
 This task is implicitly called whenever evaluate_echo() is called.
 
+## Test for this application
+![image](https://user-images.githubusercontent.com/45397911/114320064-83557880-9b14-11eb-997f-4182cdcf846d.png)
+#### Expected output:
+![image](https://user-images.githubusercontent.com/45397911/114320155-dc251100-9b14-11eb-8269-0617a968fcca.png)
+#### The scheduler output:
+- This is the connection of our circuit:
+- Teraterm output:
+![image](https://user-images.githubusercontent.com/45397911/114320158-e21af200-9b14-11eb-8eff-016c76676052.png)
+![image](https://user-images.githubusercontent.com/45397911/114320162-e5ae7900-9b14-11eb-8b68-588f25c01232.png)
+Here, you can find a Google Drive link for a small demo for this application:
 
 
