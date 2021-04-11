@@ -15,9 +15,11 @@ Here, we need to call the function "Rerun" every 10us given the same priority.
 This task is given a priority of two, highest priority among the tasks, as logically speaking it is a needed funcionality to be done after the TRIG pin of the sensor is set.
 Here, we need to call the function "Rerun" as the distance needs to be calculated regulary.
 
-3. **buzzer()**: it basically a small task queued by other tasks GettingTemperature() using QueTask(). It just blinks LED whenever the measured temperature is larger than the input threshold temperature. 
+3. **buzzer()**: it basically a small task queued by other tasks evaluate_echo() using QueTask(). It just sends a signal to the buzzer to produce sound whenever the disctance between the sensor and the object is less than 10cm. Otherwise, it turns the sound off.
+#### Assumptions:
+- the maximum allowed distance between two objects is ONLY 10 cm.
 #### Priority given:
-This task is given a priority of ONE as logically speaking it is a needed funcionality to be done after the condition becomes true. Technically, it is implicitly got repeated every 30 seconds in case the condition is true. 
+This task is implicitly called whenever evaluate_echo() is called.
 
 
 
