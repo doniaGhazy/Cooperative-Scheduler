@@ -30,7 +30,7 @@ This task is implicitly called whenever evaluate_echo() is called.
 #### The scheduler output:
 - This is the connection of our circuit:
 
-![image](https://user-images.githubusercontent.com/45397911/114320203-358d4000-9b15-11eb-9c78-3a9c32a281cd.png)
+![image](https://user-images.githubusercontent.com/45397911/114320304-a7fe2000-9b15-11eb-9068-823b95fe5586.png)
 
 - Teraterm output:
 
