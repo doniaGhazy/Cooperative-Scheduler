@@ -10,13 +10,14 @@ receiving the digital pulse on the echo pin of the sensor.
 Here, we need to call the function "Rerun" every 10us given the same priority.
 
 
-2. **evaluate_echo()** : it basically a task queued by other taks main() using QueTask(). It measures the room tempreture every 30 seconds using RTC (DS3231) by using HAL_I2C_Master_Receive() and transfers it to the teraterm (PC) using HAL_I2C_Master_Transmit(). While getting a new value every 30 seconds, we compare it with the value of the input threshold (received by ReadThreshold()). In case it is larger, we blinked LED to indicate that it is above the threshold value. Otherwise, we turn the LED off.
-Temperature is represented as a 10-bit code with a resolution of 0.25°C and is accessible at location 11h and 12h. The upper 8 bits, the integer portion, are at location 11h and the lower 2 bits, the fractional portion, are in the upper nibble at location 12h. We managed to modify the register values and send them through HAL_I2C_Master_Transmit() in order to successfully read the room temperature.
+2. **evaluate_echo()** : it basically a task queued by other taks main() using QueTask() and itself using ReRunMe() as well. The rational behind it is the fact that The sound travels straight-line path until it hits an object then it reflects back to the sensor module which sends out a digital pulse on the echo pin that has a width equal to the travel time of sound going back and forth between the module and the sensed object. This is done in programming by getting two time values: the first one once the TRIG pin is set and the other when the echo is received by the sensor. This time difference got multiplied by 0.0343 (speed of light) and then divided by two to accomedate for the forward and backward travel time of the sound. Then, this calculated distance (cm) is displayed on teraterm via UART communication.  
 #### Priority given:
-This task is given a priority of TWO as logically speaking it is the second needed funcionality to be done after getting the threshold temperature from the user.
-Here, we need to call the function "Rerun" every 30 seconds given the same priority.
-
+This task is given a priority of two, highest priority among the tasks, as logically speaking it is a needed funcionality to be done after the TRIG pin of the sensor is set.
+Here, we need to call the function "Rerun" as the distance needs to be calculated regulary.
 
 3. **buzzer()**: it basically a small task queued by other tasks GettingTemperature() using QueTask(). It just blinks LED whenever the measured temperature is larger than the input threshold temperature. 
 #### Priority given:
 This task is given a priority of ONE as logically speaking it is a needed funcionality to be done after the condition becomes true. Technically, it is implicitly got repeated every 30 seconds in case the condition is true. 
+
+
+
