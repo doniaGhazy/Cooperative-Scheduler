@@ -217,7 +217,7 @@ if (HAL_I2C_IsDeviceReady(&hi2c1, 0xD0, 10, 10) == HAL_OK)
 			QueTask(&BlinkingLED,1);
 		}
 
-	ReRunMe(&GettingTemperature, 1, 100);
+	ReRunMe(&GettingTemperature, 1, 600);
 }
 
 
