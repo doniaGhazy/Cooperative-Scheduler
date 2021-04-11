@@ -1,5 +1,6 @@
 # Cooperative-Scheduler
 The scheduler depends mainly on the taskQueue.h file and the template provided in main.c under [src](https://github.com/doniaGhazy/Cooperative-Scheduler/tree/main/unit_tests%20(.h%20%2B%20.c%20)/Core/Src)
+- You will find the two scheduler applications (Temperature Monitoring and Parking sensor) in two separate branches.  
 
 ## HOW TO USE?
 1. generate the configuration files using STM cube MX according to the peripherals needed for the application
